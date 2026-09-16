@@ -9,10 +9,10 @@
         android:label="ShiftPay"
         android:supportsRtl="true"
         android:theme="@style/Theme.ShiftPay">
-        <!-- Google sample App ID. Replace with your real AdMob App ID before publishing. -->
+
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~3347511713" />
+            android:value="@string/admob_app_id" />
 
         <activity
             android:name=".MainActivity"

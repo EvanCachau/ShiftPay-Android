@@ -1,28 +1,35 @@
-# ShiftPay Android
+# ShiftPay Android 1.2
 
-Application Android de suivi des heures, heures supplémentaires et gains estimés.
+Application Android de suivi des heures, pauses, heures supplémentaires et gains estimés.
 
 ## Configuration
-- Package: `com.shiftpay.app`
-- minSdk: 23
-- targetSdk: 36 (Android 16)
-- compileSdk: 36
-- Google Mobile Ads SDK: 25.4.0
-- Google UMP SDK: 4.0.0
+- Package : `com.shiftpay.app`
+- minSdk : 23
+- targetSdk / compileSdk : 36
+- Java : 17
+- Google Mobile Ads SDK : 25.4.0
+- Google UMP SDK : 4.0.0
 
-## Publicités
-Le projet utilise uniquement les IDs de démonstration Google AdMob.
-Avant publication, remplace :
-- l'App ID dans `AndroidManifest.xml`
-- l'ID banner dans `MainActivity.java`
-- l'ID interstitiel dans `MainActivity.java`
+## AdMob
+Les builds sont séparés automatiquement :
+- **debug** : IDs de démonstration Google AdMob uniquement ;
+- **release** : IDs AdMob réels de ShiftPay.
 
-Ne publie pas l'application avec les IDs de test.
+Aucun changement manuel d'ID n'est nécessaire avant publication.
 
-## Confidentialité
-UMP est initialisé au lancement. Il faut aussi créer le message de consentement dans
-AdMob > Privacy & messaging avec le vrai App ID avant mise en production.
+## Confidentialité / RGPD
+- UMP est interrogé à chaque lancement.
+- Le formulaire de consentement requis est affiché avant la demande d'annonces.
+- Si Google indique qu'un point d'entrée de confidentialité est requis, un bouton **Gérer mes choix de confidentialité** apparaît dans Paramètres.
+- La politique de confidentialité est accessible depuis l'app.
 
-## Build
-Ouvre le projet dans Android Studio, ou pousse-le sur GitHub : le workflow
-`.github/workflows/android-build.yml` produit un APK debug et un AAB release non signé.
+## Tests
+Le workflow GitHub Actions :
+1. construit l'APK debug ;
+2. construit l'AAB release non signé ;
+3. démarre un émulateur Android 16 ;
+4. vérifie le lancement, le début/fin d'un shift et la persistance du stockage après redémarrage.
+
+## Publication
+Ne commitez jamais la clé de signature `.jks` ni ses mots de passe dans ce dépôt.
+L'AAB produit par GitHub Actions reste non signé ; il doit être signé avec la clé d'upload avant envoi à Google Play.
