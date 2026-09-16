@@ -1,4 +1,4 @@
-# ShiftPay Android 1.2
+# ShiftPay Android 1.2.1
 
 Application Android de suivi des heures, pauses, heures supplémentaires et gains estimés.
 
@@ -33,3 +33,9 @@ Le workflow GitHub Actions :
 ## Publication
 Ne commitez jamais la clé de signature `.jks` ni ses mots de passe dans ce dépôt.
 L'AAB produit par GitHub Actions reste non signé ; il doit être signé avec la clé d'upload avant envoi à Google Play.
+
+## Fiabilité du stockage 1.2.1
+Les données restent dans `localStorage` pour la compatibilité, mais chaque sauvegarde est
+également écrite de façon synchrone dans les `SharedPreferences` Android. Au redémarrage,
+la copie native est prioritaire puis resynchronisée vers la WebView. Cela protège notamment
+un shift démarré juste avant un arrêt brutal du processus.

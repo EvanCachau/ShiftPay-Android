@@ -10,7 +10,7 @@
 - [x] Email support : contact.shiftpay@gmail.com
 - [ ] Compte Google Play Developer finalisé (frais uniques de 25 USD)
 - [ ] Vérification d'identité Google Play
-- [ ] AAB 1.2 compilé via GitHub Actions
-- [ ] AAB 1.2 signé avec la clé d'upload
+- [ ] AAB 1.2.1 compilé via GitHub Actions
+- [ ] AAB 1.2.1 signé avec la clé d'upload
 - [ ] Test fermé Google Play si requis pour le compte
 - [ ] Captures d'écran et fiche Store
