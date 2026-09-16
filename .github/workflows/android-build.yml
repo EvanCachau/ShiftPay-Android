@@ -33,9 +33,44 @@ jobs:
         with:
           name: ShiftPay-debug-apk
           path: app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
 
       - name: Upload release AAB
         uses: actions/upload-artifact@v4
         with:
           name: ShiftPay-release-aab-unsigned
           path: app/build/outputs/bundle/release/app-release.aab
+          if-no-files-found: error
+
+  smoke-test:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: ShiftPay-debug-apk
+          path: apk
+
+      - name: Enable emulator acceleration for the runner
+        run: sudo setfacl -m "u:$(id -un):rw" /dev/kvm
+
+      - name: Verify APK on Android 16
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 36
+          target: google_apis
+          arch: x86_64
+          profile: pixel_2
+          disable-animations: true
+          script: python3 .github/scripts/smoke_test.py
+
+      - name: Upload runtime verification reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ShiftPay-smoke-reports
+          path: smoke-reports/
+          if-no-files-found: warn
